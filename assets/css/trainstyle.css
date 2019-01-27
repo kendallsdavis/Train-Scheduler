@@ -1,0 +1,41 @@
+div {
+    border-style: solid;
+    border-color: red;
+    border-width: 1px;
+}
+
+#header{
+    text-align: center;
+    background-color: rgb(207, 226, 207);
+}
+
+#train {
+    background-color: rgb(207, 226, 207);
+}
+
+#header-text {
+    padding-top: 5%;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+#box-header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#train-list {
+    width: 50%;
+}
+
+.container {
+    border-style: solid;
+    border-color: red;
+    border-width: 1px;
+    width: 99%;
+}
+
+#box-header{
+    height: 5%;
+}
