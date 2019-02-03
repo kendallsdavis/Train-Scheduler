@@ -11,7 +11,7 @@
 <!-- link to javascript code -->
 <script src="assets/javascript/trainsched.js"></script>
 <!-- link to firebase -->
-<script src="https://www.gstatic.com/firebasejs/5.8.1/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
 <!-- link to firebase moment -->
 <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
  
@@ -23,10 +23,10 @@
 <body>
     <div id="header" class = "container">
     <div class = "row">
-        <div id="header-text" class = "col-7">
+        <div id="header-text" class = "col-12">
             Anytime is Train Time</div>
-        <div class = "col-5">
-            <img id="train" src="assets/images/train.jpeg" height="200px" width="350px"></div>
+        <!-- <div class = "col-5">
+            <img id="train" src="assets/images/train.jpeg" height="200px" width="350px"></div> -->
     </div> </div>
 
     <br><br>
@@ -34,14 +34,14 @@
 <!-- Current Train List and Add New Train Headers ------------------------------------------------------------- -->
 <div class = "container">
     <div id="box-header" class = "row">
-        <div class = "col-6">Current Train Schedule</div>
-        <div class = "col-6">Add a New Train</div>
+        <div class = "col-7">Current Train Schedule</div>
+        <div class = "col-5">Add a New Train</div>
     </div>
 
 <!-- Current Train Box ---------------------------------------------------------------------------------------- -->
 
-        <div class = "row">
-            <div class = "col-6">
+        <div id = "schedule" class = "row">
+            <div class = "col-7">
                 <table class="table">
                 <thead>
                     <tr>
@@ -57,18 +57,21 @@
             </div>     
 
 <!-- Add New Train Box ---------------------------------------------------------------------------------------- -->
-    <div class = "col-6"><form>
+    <div id = "add-new" class = "col-5"><form>
             <br>
             Train Name:<br>
-            <input type="text" id="train-name"><br><br>            
+            <input type="text" id="train-name"><br><br>       
+
             Destination:<br>
-            <input type="text" id="destination"><br>
-            First Train Time (HH:mm Military Time):<br><br>
-            <input type="text" id="time"><br>
-            Frequency (min):<br><br>
-            <input type="text" id="frequency"><br>
+            <input type="text" id="destination"><br><br>
+
+            First Train Time (HH:mm Military Time):<br>
+            <input type="time" id="time"><br><br>
+
+            Frequency (min):<br>
+            <input type="text" id="frequency"><br><br>
         </form>
-        <button id="submit" type="button" class="btn btn-lg btn-primary" disabled>Submit</button>
+        <button id="submit" type="button" class="btn btn-lg btn-primary">Submit</button>
     
     </div>
         
