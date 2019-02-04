@@ -1,5 +1,4 @@
-
-  $(document).ready(function(){
+$(document).ready(function(){
   
     // Initialize Firebase
     var config = {
@@ -32,36 +31,6 @@ function reset() {
     $("#frequency").val("");
 };
 
-console.log(moment().unix());
-
-var stamp = moment().unix();
-
-// At the initial load and on subsequent data value changes, get a snapshot of the current data. (I.E FIREBASE HERE)
-// This callback keeps the page updated when a value changes in firebase.
-database.ref().on("value", function(snapshot) {
-    // We are now inside our .on function...
-  
-    // Console.log the "snapshot" value (a point-in-time representation of the database)
-    console.log(snapshot.val());
-    // This "snapshot" allows the page to get the most current values in firebase.
-  
-    // Change the value of our clickCounter to match the value in the database
-    // clickCounter = snapshot.val().clickCount;
-  
-    // Console Log the value of the clickCounter
-    // console.log(clickCounter);
-  
-    // Change the HTML using jQuery to reflect the updated clickCounter value
-    // $("#click-value").text(clickCounter);
-    // Alternate solution to the above line
-    // $("#click-value").html(clickCounter);
-  
-  // If any errors are experienced, log them to console.
-  }, function(errorObject) {
-    console.log("The read failed: " + errorObject.code);
-  });
-  
-
 // Create onclick event for new train submission
 $("#submit").click(function(){
     event.preventDefault(); 
@@ -92,16 +61,7 @@ $("#submit").click(function(){
         ftTotal = (ftHour * 60) + ftMin;
         console.log(ftTotal);
 
-            // // Set variables in database equal to javascript variables
-            database.ref().push({
-                train: train,
-                destination: destination, 
-                frequency: frequency,
-                // nextArrival: nextArrival,
-                // minAway: minAway,
-                firstTime: firstTime
-            }); 
-
+          
 
         // Calculate minutes away
         // If the first train is in the future, minutes away is future time minus current time
@@ -121,6 +81,9 @@ $("#submit").click(function(){
         // To select only the numbers before the decimal of nextArrivalHrs
         nextArrivalHrs = nextArrivalHrs.toString().split(".")[0];
         nextArrivalMin = nextArrivalTtl%60;
+        if(nextArrivalMin<10){
+            nextArrivalMin = "0"+nextArrivalMin;
+        }
         console.log(nextArrivalTtl);
         console.log(nextArrivalHrs);
         console.log(nextArrivalMin);
@@ -133,13 +96,27 @@ $("#submit").click(function(){
         nextArrival = nextArrivalHrs + ":" + nextArrivalMin;
             };
 
-    
+        console.log(currentTimeMin);
+        console.log(ftTotal);
+        console.log(nextArrivalTtl);
+        console.log(nextArrivalHrs);
+        console.log(nextArrivalMin)
+
+          // // Set variables in database equal to javascript variables
+          database.ref().push({
+            train: train,
+            destination: destination, 
+            frequency: frequency,
+            nextArrival: nextArrival,
+            minAway: minAway,
+            firstTime: firstTime
+        }); 
+
 
         // // Reset form values to blank
         reset();
+
     });
-
-
 
 // Create an event listener for updates to the database
     database.ref().on("child_added", function (snapshot) {
@@ -150,8 +127,8 @@ $("#submit").click(function(){
         var newTrain = $("<td>").text(snapshot.val().train);
         var newDestination = $("<td>").text(snapshot.val().destination); 
         var newFrequency = $("<td>").text(snapshot.val().frequency);
-        var newArrival = $("<td>").text(nextArrival);
-        var newMinAway = $("<td>").text(minAway);
+        var newArrival = $("<td>").text(snapshot.val().nextArrival);
+        var newMinAway = $("<td>").text(snapshot.val().minAway);
 
         // append the new table data elements to the table of trains
         newTR.append(newTrain, newDestination, newFrequency, newArrival, newMinAway);
